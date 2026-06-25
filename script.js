@@ -33,36 +33,53 @@ const timerEl = document.getElementById("timer");
 const questionEl = document.getElementById("question");
 const answersEl = document.getElementById("answers");
 
-let highscore = Number(localStorage.getItem("highscore")) || 0;
-highscoreEl.textContent = "สูงสุด: " + highscore;
+let highscore =
+Number(localStorage.getItem("highscore")) || 0;
+
+highscoreEl.textContent =
+"สูงสุด: " + highscore;
 
 function beginGame() {
-  player = document.getElementById("playerName").value.trim();
+
+  player =
+  document.getElementById("playerName")
+  .value.trim();
 
   if (player === "") {
     alert("กรุณากรอกชื่อก่อน");
     return;
   }
 
-  document.getElementById("startScreen").style.display = "none";
-  document.getElementById("gameScreen").style.display = "block";
-  document.getElementById("resultScreen").style.display = "none";
+  document.getElementById("startScreen")
+  .style.display = "none";
+
+  document.getElementById("gameScreen")
+  .style.display = "block";
+
+  document.getElementById("resultScreen")
+  .style.display = "none";
 
   startGame();
 }
 
 function newQuestion() {
+
   currentQuestion =
-    elements[Math.floor(Math.random() * elements.length)];
+  elements[Math.floor(
+    Math.random() * elements.length
+  )];
 
   questionEl.textContent =
-    `สัญลักษณ์ของ ${currentQuestion.name} คืออะไร`;
+  `สัญลักษณ์ของ ${currentQuestion.name} คืออะไร`;
 
   let choices = [currentQuestion.symbol];
 
   while (choices.length < 4) {
+
     let random =
-      elements[Math.floor(Math.random() * elements.length)].symbol;
+    elements[Math.floor(
+      Math.random() * elements.length
+    )].symbol;
 
     if (!choices.includes(random)) {
       choices.push(random);
@@ -74,21 +91,29 @@ function newQuestion() {
   answersEl.innerHTML = "";
 
   choices.forEach(choice => {
-    const btn = document.createElement("button");
+
+    const btn =
+    document.createElement("button");
 
     btn.className = "answer";
     btn.textContent = choice;
 
     btn.onclick = () => {
 
-      if (choice === currentQuestion.symbol) {
+      if (
+        choice === currentQuestion.symbol
+      ) {
+
         score++;
         correct++;
 
         scoreEl.textContent =
-          "คะแนน: " + score;
+        "คะแนน: " + score;
+
       } else {
+
         wrong++;
+
       }
 
       newQuestion();
@@ -107,8 +132,11 @@ function startGame() {
   correct = 0;
   wrong = 0;
 
-  scoreEl.textContent = "คะแนน: 0";
-  timerEl.textContent = time;
+  scoreEl.textContent =
+  "คะแนน: 0";
+
+  timerEl.textContent =
+  time;
 
   newQuestion();
 
@@ -123,6 +151,7 @@ function startGame() {
       clearInterval(timer);
 
       if (score > highscore) {
+
         highscore = score;
 
         localStorage.setItem(
@@ -131,42 +160,92 @@ function startGame() {
         );
 
         highscoreEl.textContent =
-          "สูงสุด: " + highscore;
+        "สูงสุด: " + highscore;
       }
 
+      let leaderboard =
+      JSON.parse(
+        localStorage.getItem("leaderboard")
+      ) || [];
+
+      leaderboard.push({
+        name: player,
+        score: score
+      });
+
+      leaderboard.sort(
+        (a, b) => b.score - a.score
+      );
+
+      leaderboard =
+      leaderboard.slice(0, 10);
+
+      localStorage.setItem(
+        "leaderboard",
+        JSON.stringify(leaderboard)
+      );
+
       document.getElementById("gameScreen")
-        .style.display = "none";
+      .style.display = "none";
 
       document.getElementById("resultScreen")
-        .style.display = "block";
+      .style.display = "block";
 
       document.getElementById("playerResult")
-        .innerText = player;
+      .innerText = player;
 
       document.getElementById("finalScore")
-        .innerText = score;
+      .innerText = score;
+
+      const board =
+      document.getElementById("leaderboard");
+
+      board.innerHTML = "";
+
+      leaderboard.forEach(item => {
+
+        board.innerHTML +=
+        `<li>${item.name} - ${item.score} คะแนน</li>`;
+
+      });
 
       const ctx =
-        document.getElementById("resultChart");
+      document.getElementById("resultChart");
 
       new Chart(ctx, {
+
         type: "pie",
+
         data: {
-          labels: ["ตอบถูก", "ตอบผิด"],
+
+          labels: [
+            "ตอบถูก",
+            "ตอบผิด"
+          ],
+
           datasets: [{
-            data: [correct, wrong],
+
+            data: [
+              correct,
+              wrong
+            ],
+
             backgroundColor: [
               "#22c55e",
               "#ef4444"
             ]
+
           }]
         }
       });
-
     }
 
   }, 1000);
 }
 
-document.getElementById("restart")
-  .addEventListener("click", startGame);
+document
+.getElementById("restart")
+.addEventListener(
+  "click",
+  startGame
+);
