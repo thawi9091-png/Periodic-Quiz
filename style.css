@@ -1,0 +1,111 @@
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1{
+    color: #38bdf8;
+}
+
+#startScreen,
+#gameScreen{
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 30px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+#playerName{
+    width: 250px;
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.info{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#score{
+    color: #22c55e;
+}
+
+#highscore{
+    color: #f59e0b;
+}
+
+#timer{
+    color: #ef4444;
+}
+
+#question{
+    margin: 25px 0;
+    font-size: 24px;
+}
+
+.answer{
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #2563eb;
+    color: white;
+    transition: 0.3s;
+}
+
+.answer:hover{
+    background: #1d4ed8;
+    transform: scale(1.02);
+}
+
+button{
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #22c55e;
+    color: white;
+    transition: 0.3s;
+}
+
+button:hover{
+    background: #16a34a;
+}
+
+@media(max-width:600px){
+
+    .info{
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #playerName{
+        width: 90%;
+    }
+
+    .answer{
+        font-size: 16px;
+    }
+}

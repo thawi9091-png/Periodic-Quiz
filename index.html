@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Periodic Table Quiz</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- หน้าเริ่มเกม -->
+    <div id="startScreen">
+
+        <h1>🧪 Periodic Table Quiz</h1>
+
+        <h2>กรอกชื่อผู้เล่น</h2>
+
+        <input
+            type="text"
+            id="playerName"
+            placeholder="ใส่ชื่อของคุณ"
+        >
+
+        <br><br>
+
+        <button onclick="beginGame()">
+            เริ่มเกม
+        </button>
+
+    </div>
+
+    <!-- หน้าเกม -->
+    <div id="gameScreen" style="display:none;">
+
+        <h1>🧪 Periodic Table Quiz</h1>
+
+        <div class="info">
+
+            <span id="score">
+                คะแนน: 0
+            </span>
+
+            <span id="highscore">
+                สูงสุด: 0
+            </span>
+
+            <span id="timer">
+                60
+            </span>
+
+        </div>
+
+        <h2 id="question"></h2>
+
+        <div id="answers"></div>
+
+        <button id="restart">
+            เริ่มใหม่
+        </button>
+
+    </div>
+
+    <!-- หน้าสรุปผล -->
+    <div id="resultScreen" style="display:none;">
+
+        <h1>🏆 สรุปผลการเล่น</h1>
+
+        <p>
+            ผู้เล่น:
+            <span id="playerResult"></span>
+        </p>
+
+        <p>
+            คะแนน:
+            <span id="finalScore"></span>
+        </p>
+
+        <canvas
+            id="resultChart"
+            width="300"
+            height="300">
+        </canvas>
+
+        <br><br>
+
+        <button onclick="location.reload()">
+            เล่นอีกครั้ง
+        </button>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
